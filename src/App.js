@@ -7,6 +7,9 @@ import Board from "./Components/Board";
 import { updateBoardTile } from "./SudokuGame"
 
 function App() {
+
+  const [won, setWon] = useState(false)
+
   const [board, setBoard] = useState(() => {
     let board = [];
     for (let x = 0; x < 9; x++) {
@@ -25,13 +28,13 @@ function App() {
   });
   
   const updateBoard = (x, y, value, board) => {
-    setBoard(updateBoardTile(x, y, value, board))
+    setBoard(updateBoardTile(x, y, value, board, setWon))
   }
 
   return (
     <div className="container">
       <Header title="Sudoku Solver" />
-      <Board updateTile={updateBoard} board={board} />
+      <Board updateTile={updateBoard} board={board} won={won}/>
     </div>
   );
 }

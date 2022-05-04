@@ -1,6 +1,6 @@
 import Square from "./Square";
 
-const Board = ({ updateTile, board, onClick }) => {
+const Board = ({ updateTile, board, won}) => {
   return (
     <div className="Board">
       {board.map((row, indexX) => (
@@ -10,6 +10,7 @@ const Board = ({ updateTile, board, onClick }) => {
             updateTile={(value) => updateTile(item.x, item.y, value, board)}
             value={item.value}
             isValid={item.valid}
+            won={won}
           />
         ))
       ))}

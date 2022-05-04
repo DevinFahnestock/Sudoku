@@ -1,9 +1,10 @@
-const Square = ({ isValid, updateTile, value }) => {
+const Square = ({ isValid, updateTile, value, won }) => {
   
   return (
     <div className="Square">
       <input
         data-valid={isValid}
+        data-won={won}
         maxLength="1"
         type="text"
         onClick={(e) => e.target.select()}

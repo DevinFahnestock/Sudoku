@@ -75,13 +75,16 @@ export const updateBoardTile = (tilex, tiley, value, board) => {
     }
   }
 
+  let correctCount = 0
+
   for (let x = 0; x < 9; x++) {
     for (let y = 0; y < 9; y++) {
       copy[x][y].valid = true;
       if (copy[x][y].toBeInvalid) {
         copy[x][y].valid = false;
         copy[x][y].toBeInvalid = false;
-      }
+      } 
+      if (copy[x][y].valid === true && copy[x][y].value > 0) correctCount++
     }
   }
   return copy;
