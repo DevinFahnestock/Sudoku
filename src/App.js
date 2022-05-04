@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Header from "./Components/Header";
 import Board from "./Components/Board";
@@ -10,11 +10,9 @@ import SavedBoard from "./board1.json"
 function App() {
   const [won, setWon] = useState(false);
 
-  const makeCleanBoard = false
+  const fetchBoard = true
 
   const [board, setBoard] = useState(() => {
-
-    if (makeCleanBoard) { 
     let board = [];
     for (let x = 0; x < 9; x++) {
       board[x] = [];
@@ -31,13 +29,20 @@ function App() {
         
       }
     return board
-    } else {
-      return SavedBoard
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const datastream = await fetch('https://raw.githubusercontent.com/DevinFahnestock/Sudoku/master/src/board1.json')
+      const dataJSON = await datastream.json()
+      setBoard(dataJSON)
     }
 
+    fetchBoard && fetchData()
+  }, [setBoard])
 
-    
-  });
+
+
 
   const updateBoard = (x, y, value, board) => {
     setBoard(updateBoardTile(x, y, value, board, setWon));
