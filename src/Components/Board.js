@@ -11,6 +11,7 @@ const Board = ({ updateTile, board, won}) => {
             value={item.value}
             isValid={item.valid}
             won={won}
+            readonly={item.readonly}
           />
         ))
       ))}

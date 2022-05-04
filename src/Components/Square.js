@@ -1,9 +1,10 @@
-const Square = ({ isValid, updateTile, value, won }) => {
+const Square = ({ isValid, updateTile, value, won, readonly}) => {
   
   return (
     <div className="Square">
       <input
         data-valid={isValid}
+        readOnly={readonly}
         data-won={won}
         maxLength="1"
         type="text"
@@ -13,7 +14,8 @@ const Square = ({ isValid, updateTile, value, won }) => {
           if (input < 10 && input > 0) {
             updateTile(input);
           }
-        }}
+        }
+      }
         
         value={(value === 0) ? " " : value}
       />

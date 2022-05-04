@@ -35,7 +35,7 @@ export const isSquareValid = (boardToCheck, gridX, gridY, value) => {
   return count <= 1;
 };
 
-export const updateBoardTile = (tilex, tiley, value, board) => {
+export const updateBoardTile = (tilex, tiley, value, board, setWon) => {
   let copy = [...board];
   copy[tilex][tiley].value = value;
 
@@ -87,5 +87,7 @@ export const updateBoardTile = (tilex, tiley, value, board) => {
       if (copy[x][y].valid === true && copy[x][y].value > 0) correctCount++
     }
   }
+
+  if (correctCount > 80) setWon(true)
   return copy;
 };

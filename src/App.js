@@ -4,37 +4,62 @@ import { useState } from "react";
 
 import Header from "./Components/Header";
 import Board from "./Components/Board";
-import { updateBoardTile } from "./SudokuGame"
+import { updateBoardTile } from "./SudokuGame";
+import SavedBoard from "./board1.json"
 
 function App() {
+  const [won, setWon] = useState(false);
 
-  const [won, setWon] = useState(false)
+  const makeCleanBoard = false
 
   const [board, setBoard] = useState(() => {
+
+    if (makeCleanBoard) { 
     let board = [];
     for (let x = 0; x < 9; x++) {
       board[x] = [];
       for (let y = 0; y < 9; y++)
         board[x][y] = {
-          key: x*9+y,
+          key: x * 9 + y,
           value: 0,
           x: x,
           y: y,
           valid: true,
-          toBeInvalid: false
+          toBeInvalid: false,
+          readonly: false,
         };
+        
+      }
+    return board
+    } else {
+      return SavedBoard
     }
-    return board;
+
+
+    
   });
-  
+
   const updateBoard = (x, y, value, board) => {
-    setBoard(updateBoardTile(x, y, value, board, setWon))
-  }
+    setBoard(updateBoardTile(x, y, value, board, setWon));
+  };
 
   return (
     <div className="container">
-      <Header title="Sudoku Solver" />
-      <Board updateTile={updateBoard} board={board} won={won}/>
+      <Header title="Sudoku" />
+      <Board updateTile={updateBoard} board={board} won={won} />
+      {/* <button
+        onClick={() => {
+          let copy = [...board]
+          for (let x = 0; x < 9; x++) {
+            for (let y = 0; y < 9; y++) {
+              if (copy[x][y].value > 0) {
+                copy[x][y].readonly = true
+              }
+            }
+          }
+          console.log(JSON.stringify(copy));
+        }}
+      >Output Board</button> */}
     </div>
   );
 }
