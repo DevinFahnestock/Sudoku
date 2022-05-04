@@ -4,13 +4,12 @@ import { useEffect, useState } from "react";
 
 import Header from "./Components/Header";
 import Board from "./Components/Board";
-import { updateBoardTile } from "./SudokuGame";
-import SavedBoard from "./board1.json"
+import { updateBoardTile } from "./Sudoku/SudokuGame";
 
 function App() {
   const [won, setWon] = useState(false);
 
-  const fetchBoard = true
+  const fetchBoard = true;
 
   const [board, setBoard] = useState(() => {
     let board = [];
@@ -26,23 +25,21 @@ function App() {
           toBeInvalid: false,
           readonly: false,
         };
-        
-      }
-    return board
+    }
+    return board;
   });
 
   useEffect(() => {
     const fetchData = async () => {
-      const datastream = await fetch('https://raw.githubusercontent.com/DevinFahnestock/Sudoku/master/src/board1.json')
-      const dataJSON = await datastream.json()
-      setBoard(dataJSON)
-    }
+      const datastream = await fetch(
+        "https://raw.githubusercontent.com/DevinFahnestock/Sudoku/master/src/board1.json"
+      );
+      const dataJSON = await datastream.json();
+      setBoard(dataJSON);
+    };
 
-    fetchBoard && fetchData()
-  }, [setBoard])
-
-
-
+    fetchBoard && fetchData();
+  }, [setBoard]);
 
   const updateBoard = (x, y, value, board) => {
     setBoard(updateBoardTile(x, y, value, board, setWon));
